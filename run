@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker build -t synohooks .
+
+docker run -it \
+-p 42069:8080 \
+-e DISCORD_URL=$DISCORD_URL \
+synohooks
