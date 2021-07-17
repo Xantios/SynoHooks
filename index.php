@@ -1,10 +1,25 @@
 <?php
 
+if(empty($_ENV['DISCORD_URL'])) {
+    logMsg('Missing Discord URL in ENV');
+    exit(1);
+}
+
+if(empty($_ENV['TOKEN'])) {
+    logMsg("Missing Token in ENV");
+    exit(1);
+}
+
+if(!checkToken()) {
+    logMsg('Message rejected! Token invalid');
+    exit(1);
+}
+
 logMsg('>> Msg :: '.$_SERVER['HTTP_MSG']);
 sendMsg();
 
-function checkToken() {
-    //     
+function checkToken() :bool {
+    return ($_SERVER['HTTP_TOKEN']===$_ENV['TOKEN']);
 }
 
 function sendMsg() {
